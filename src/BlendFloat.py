@@ -34,7 +34,6 @@ def window_enum_handler(hwnd, resultList):
 def setBlenderForeground():
     win32gui.EnumWindows(window_enum_handler,[])
 # exec Info
-#
 class ExecInfo(object):
     def __init__(self, *args):
         super(ExecInfo, self).__init__(*args)
@@ -62,19 +61,6 @@ async_mode = "eventlet"
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app, async_mode=async_mode)
-thread = None
-
-
-def background_thread():
-    """Example of how to send server generated events to clients."""
-    count = 0
-    while True:
-        socketio.sleep(10)
-        count += 1
-        socketio.emit('my_response',
-                      {'data': 'Server generated event', 'count': count},
-                      namespace='/test')
-
 
 @app.route('/')
 def index():
@@ -117,9 +103,6 @@ def disconnect_request():
 
 @socketio.on('connect', namespace='/test')
 def test_connect():
-    global thread
-    if thread is None:
-        thread = socketio.start_background_task(target=background_thread)
     emit('my_response', {'data': 'Connected', 'count': 0})
 
 
@@ -130,18 +113,7 @@ def test_disconnect():
 
 if __name__ == '__main__':
     socketio.run(app,port=int(serverConf["port"]), debug=True)
-# from bottle import Bottle, static_file, request, template, TEMPLATE_PATH, HTTPResponse
-# TEMPLATE_PATH.append(os.path.join(serverConf["path"], 'views'))
-# app = Bottle()
-# get = app.get
-# post = app.post
-# route = app.route
 
-
-# @route("/exec")
-# def execCode():
-#     # return "print('running')"
-#     return execInfo.pop()
 
 # # views
 # @get('/<view_name>')
@@ -152,17 +124,4 @@ if __name__ == '__main__':
 #         return "can not find view[{0}] in server.cfg".format(view_name)
 #     else:
 #         return template(view_name, request.query)
-
-# # static
-# static_path = os.path.join(serverConf["path"], 'static')
-# print("static path:", static_path)
-
-
-# @get('/static/<filepath:path>')
-# def server_static(filepath):
-#     print(filepath)
-#     return static_file(filepath, root=static_path)
-
-
-# app.run(host='0.0.0.0', debug=True,port=serverConf["port"], reloader=True)
 
