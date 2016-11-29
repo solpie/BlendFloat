@@ -23,7 +23,16 @@ def loadConf():
     print("serverConf:", serverConf)
 
 loadConf()
+# set Blender Foreground
+import win32gui
+def window_enum_handler(hwnd, resultList):
+    title = win32gui.GetWindowText(hwnd)
+    if "Blender" in title:
+        print("find Blender hwnd",hwnd)
+        win32gui.SetForegroundWindow(hwnd)
 
+def setBlenderForeground():
+    win32gui.EnumWindows(window_enum_handler,[])
 # exec Info
 #
 class ExecInfo(object):
@@ -73,7 +82,10 @@ def index():
 
 @app.route('/exec',methods=['GET'])
 def getExecBpy():
-    return execInfo.pop()
+    bpy = execInfo.pop()
+    if bpy !="":
+        setBlenderForeground()
+    return bpy
     
 @app.route('/exec',methods=['POST'])
 def pushExecBpy():
