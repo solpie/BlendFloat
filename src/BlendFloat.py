@@ -56,10 +56,12 @@ from flask_socketio import SocketIO, emit, join_room, leave_room, \
 # Set this variable to "threading", "eventlet" or "gevent" to test the
 # different async modes, or leave it set to None for the application to choose
 # the best option based on installed packages.
-async_mode = "eventlet"
+from engineio import async_eventlet
+async_mode ="eventlet"
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
+# socketio = SocketIO(app)
 socketio = SocketIO(app, async_mode=async_mode)
 
 @app.route('/')
