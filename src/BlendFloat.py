@@ -13,7 +13,6 @@ import configparser
 
 config = configparser.RawConfigParser()
 
-
 def loadConf():
     config.read(os.path.join(serverConf["path"], '.cfg'))
     serverConf["port"] = config.get('server', 'port')
@@ -50,8 +49,7 @@ class ExecInfo(object):
 execInfo = ExecInfo()
 # web server
 from flask import Flask, render_template, session, request
-from flask_socketio import SocketIO, emit, join_room, leave_room, \
-    close_room, rooms, disconnect
+from flask_socketio import SocketIO
 
 # Set this variable to "threading", "eventlet" or "gevent" to test the
 # different async modes, or leave it set to None for the application to choose
@@ -61,7 +59,6 @@ async_mode ="eventlet"
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
-# socketio = SocketIO(app)
 socketio = SocketIO(app, async_mode=async_mode)
 
 @app.route('/')
@@ -71,8 +68,8 @@ def index():
 @app.route('/exec',methods=['GET'])
 def getExecBpy():
     bpy = execInfo.pop()
-    if bpy !="":
-        setBlenderForeground()
+    # if bpy !="":
+    #     setBlenderForeground()
     return bpy
     
 @app.route('/exec',methods=['POST'])
@@ -80,50 +77,6 @@ def pushExecBpy():
     bpy = request.values.get('bpy', 0) 
     execInfo.push(bpy)
     return "ok"
-
-@socketio.on('my_event', namespace='/test')
-def test_message(message):
-    session['receive_count'] = session.get('receive_count', 0) + 1
-    emit('my_response',
-         {'data': message['data'], 'count': session['receive_count']})
-
-
-@socketio.on('my_broadcast_event', namespace='/test')
-def test_broadcast_message(message):
-    session['receive_count'] = session.get('receive_count', 0) + 1
-    emit('my_response',
-         {'data': message['data'], 'count': session['receive_count']},
-         broadcast=True)
-
-
-@socketio.on('disconnect_request', namespace='/test')
-def disconnect_request():
-    session['receive_count'] = session.get('receive_count', 0) + 1
-    emit('my_response',
-         {'data': 'Disconnected!', 'count': session['receive_count']})
-    disconnect()
-
-@socketio.on('connect', namespace='/test')
-def test_connect():
-    emit('my_response', {'data': 'Connected', 'count': 0})
-
-
-@socketio.on('disconnect', namespace='/test')
-def test_disconnect():
-    print('Client disconnected', request.sid)
-
-
+    
 if __name__ == '__main__':
     socketio.run(app,port=int(serverConf["port"]), debug=True)
-
-
-# # views
-# @get('/<view_name>')
-# @get('/<view_name>/')
-# def views_tpl(view_name):
-#     print("views:", view_name)
-#     if view_name not in serverConf["views"]:
-#         return "can not find view[{0}] in server.cfg".format(view_name)
-#     else:
-#         return template(view_name, request.query)
-

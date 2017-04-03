@@ -1,0 +1,76 @@
+import win32gui
+import win32api
+import win32con
+import os
+# 0x55
+# U key
+
+
+def runDefScript():
+    hwnd = win32gui.FindWindowEx(0, 0, 0, 'ZBrush')
+    # win32gui.GetWindowText() == self.title
+    print(hwnd)
+    win32api.PostMessage(hwnd, win32con.WM_KEYDOWN,
+                         win32con.VK_CONTROL, 0)  # 发送F9键
+    win32api.PostMessage(hwnd, win32con.WM_KEYDOWN, 0x55, 0)  # 发送F9键
+    win32api.PostMessage(hwnd, win32con.WM_KEYUP, 0x55, 0)
+    win32api.PostMessage(hwnd, win32con.WM_KEYUP, win32con.VK_CONTROL, 0)
+    win32api.PostMessage(hwnd, win32con.WM_KEYDOWN,
+                         win32con.VK_MULTIPLY, 0)  # 发送F9键
+    win32api.PostMessage(hwnd, win32con.WM_KEYUP, win32con.VK_MULTIPLY, 0)
+
+
+def writeZScript(s, zpath=None):
+    # find zbrush path
+    # from win32com.client import GetObject
+    # mywmi = GetObject("winmgmts:")
+    # objs = mywmi.InstancesOf("Win32_Process")
+    # for obj in objs:
+    #     # print obj.executablepath
+    #     p = obj.executablepath
+    #     # if p:
+    #     #     print(p)
+    #     if str(p).find('ZBrush') > -1:
+    #         zpath = p
+    #         print(p)
+    # print(s)
+    # zpath = '''D:\\apps\\Pixologic ZBrush V4R7 P2 Portable\\Picologic ZBrush 4R7 P2\\ZScripts'''
+    if zpath:
+        defzsc = os.path.join(zpath, "DefaultZScript.txt")
+        print(defzsc)
+        with open(defzsc, 'w') as f:
+            f.write(s)
+            f.close()
+
+
+def runZRemesher(v):
+    s = '''
+[Loop,1,
+[ISet,Tool:Geometry:Target Polygons Count,{0}]
+[IPress,Tool:Geometry:ZRemesher]
+[IPress,Tool:GoZ]
+]
+    '''.format(v)
+    # print(s)
+    return s
+
+
+def runDynaMesh(v):
+    s = '''
+[Loop,1,
+[ISet,Tool:Geometry:Resolution,{0}]
+[IUnPress,Tool:Geometry:DynaMesh]
+[IPress,Tool:Geometry:DynaMesh]
+[IPress,Tool:GoZ]
+]
+'''.format(v)
+    return s
+
+
+def main():
+    s = runZRemesher(2)
+    writeZScript(s)
+    runDefScript()
+
+if __name__ == '__main__':
+    main()
