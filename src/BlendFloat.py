@@ -28,15 +28,35 @@ def window_enum_handler(hwnd, resultList):
     title = win32gui.GetWindowText(hwnd)
     if "Blender" in title:
         print("find Blender hwnd",hwnd)
+        shell.SendKeys("")
         win32gui.SetForegroundWindow(hwnd)
 
 def setBlenderForeground():
     win32gui.EnumWindows(window_enum_handler,[])
 # exec Info
+import win32api
+import win32con
+import win32com.client
+shell = win32com.client.Dispatch("WScript.Shell")
 class ExecInfo(object):
     def __init__(self, *args):
         super(ExecInfo, self).__init__(*args)
         self.code = "import bpy;bpy.ops.object.select_all()"
+
+    @staticmethod
+    def callBlender():
+        setBlenderForeground()
+        shell.AppActivate("Blender")
+        # win32api.Sleep(50)
+        shell.SendKeys("{F5}")
+        # i = 5
+        # while i>0:
+        #     i -=1
+        #     win32api.Sleep(1000)
+        #     hwnd = win32gui.GetForegroundWindow()
+        #     print(hwnd)
+        #     pass
+        # shell.SendKeys("+^%b")
 
     def push(self,code):
         self.code = code
@@ -74,6 +94,7 @@ def getExecBpy():
     
 @app.route('/exec',methods=['POST'])
 def pushExecBpy():
+    ExecInfo.callBlender()
     bpy = request.values.get('bpy', 0) 
     execInfo.push(bpy)
     return "ok"

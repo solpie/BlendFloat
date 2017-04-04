@@ -5,80 +5,62 @@ import bpy
 bl_info = {
     "name": "BlendFloat",
     "author": "SolPie",
-    "version": (1, 0),
+    "version": (1, 1),
     "blender": (2, 7, 8),
-    "location": "Remote Web Browser 9527",
-    "description": "misc tool 2",
+    "location": "localhost 9527",
+    "description": "Blender Float call from external app",
     "warning": "",
-    "category": "Rig"}
+    "category": "Misc"}
 
 from bpy.props import StringProperty, IntProperty, BoolProperty
 
 # Addon prefs
-class BlendCharPrefs(bpy.types.AddonPreferences):
+class BlendFloatPrefs(bpy.types.AddonPreferences):
     bl_idname = __name__
     port = IntProperty(
         name="web server port",
         default=9527,
-    )
-    enable = BoolProperty(
-        name="enable",
-        default=False,
     )
 
     def draw(self, context):
         layout = self.layout
         row = layout.row()
         row.prop(self, "port")
-        row.prop(self, "enable")
         # self.checkEnable(context)
 ####################################
-isRunning = False
-class BlendCharExec(bpy.types.Operator):
-    bl_idname = "blendchar.exec"
-    bl_label = "run.BlendCharExec"
-
-    _timer = None
-
-    def modal(self, context, event):
-        # if event.type == 'ESC':
-        #     return self.cancel(context)
-        if event.type == 'TIMER':
-            user_preferences = context.user_preferences
-            addon_prefs = user_preferences.addons[__name__].preferences
-            server_port = addon_prefs.port
-            try:
-                from urllib.request import urlopen
-                code = urlopen("http://127.0.0.1:"+str(server_port) +"/exec", timeout=1).read()
-                if code:
-                    exec(compile(code, '<string>', 'exec'))
-            except Exception as e:
-                global isRunning
-                isRunning = False
-                print('stop BlendChar',e)
-                self.cancel(context)
-                pass
-        return {'PASS_THROUGH'}
-
+class BlendCall(bpy.types.Operator):
+    bl_idname = "blendfloat.call"
+    bl_label = "run.BlendCall"
     def execute(self, context):
-        global isRunning
-        if not isRunning:
-            isRunning = True
-            self._timer = context.window_manager.event_timer_add(0.1, context.window)
-            context.window_manager.modal_handler_add(self)
-            return {'RUNNING_MODAL'}
+        user_preferences = context.user_preferences
+        addon_prefs = user_preferences.addons[__name__].preferences
+        server_port = addon_prefs.port
+        try:
+            from urllib.request import urlopen
+            code = urlopen("http://localhost:"+str(server_port) +"/exec", timeout=1).read()
+            if code:
+                exec(compile(code, '<string>', 'exec'))
+        except Exception as e:
+            print('stop BlendCall',e)
         return {'PASS_THROUGH'}
-
-    def cancel(self, context):
-        context.window_manager.event_timer_remove(self._timer)
-        return {'CANCELLED'}
+# store keymaps here to access after registration
+addon_keymaps = []
 
 ###########
 def register():
-    bpy.utils.register_class(BlendCharPrefs)
-    bpy.utils.register_class(BlendCharExec)
-
+    bpy.utils.register_class(BlendFloatPrefs)
+    bpy.utils.register_class(BlendCall)
+    # handle the keymap
+    wm = bpy.context.window_manager
+    km = wm.keyconfigs.addon.keymaps.new(name = "Window", space_type = "EMPTY")
+    kmi = km.keymap_items.new(BlendCall.bl_idname, 'F5', 'PRESS')
+    kmi.properties.name = "BlendFloat_call"
+    addon_keymaps.append((km, kmi))
 
 def unregister():
-    bpy.utils.unregister_class(BlendCharPrefs)
-    bpy.utils.unregister_class(BlendCharExec)
+    bpy.utils.unregister_class(BlendFloatPrefs)
+    bpy.utils.unregister_class(BlendCall)
+    # handle the keymap
+    for km, kmi in addon_keymaps:
+        km.keymap_items.remove(kmi)
+    addon_keymaps.clear()
