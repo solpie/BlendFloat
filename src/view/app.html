@@ -15,13 +15,13 @@
 
                     <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" @click='bpy("gob.py")'>gob</button>
                     <div class="demo-card-wide mdl-card mdl-shadow--2dp" style="width:400px;height:100px;padding: 5px">
-                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" @click='runZRemesher(zrPolygonsCount)' style="width: 150px">ZRemesher</button>
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" @click='gob("ZRemesher",zrPolygonsCount)' style="width: 150px">ZRemesher</button>
                         <br> Polygons Count {{zrPolygonsCount}} K
                         <input class="mdl-slider mdl-js-slider" type="range" min="2" max="20" v-model='zrPolygonsCount'>
                     </div>
 
                     <div class="mdl-card mdl-shadow--2dp" style="width:400px;height:100px;padding: 5px">
-                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" @click='bpy("gob.py")' style="width: 150px">Dynamesh</button>
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" @click='gob("Dynamesh",zdResolution)' style="width: 150px">Dynamesh</button>
                         <br> Resolution {{zdResolution}}
                         <input class="mdl-slider mdl-js-slider" type="range" min="8" max="4096" v-model='zdResolution'>
                     </div>

@@ -1,1 +1,2 @@
-from engineio import async_eventlet
+set Zbrush "DefaultZScript" hotkey to "*"
+preferences->HotKeys->Store

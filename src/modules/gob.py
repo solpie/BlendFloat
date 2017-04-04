@@ -2,14 +2,14 @@ import win32gui
 import win32api
 import win32con
 import os
-# 0x55
-# U key
 
 
 def runDefScript():
     hwnd = win32gui.FindWindowEx(0, 0, 0, 'ZBrush')
     # win32gui.GetWindowText() == self.title
     print(hwnd)
+    # 0x55
+    # U key
     win32api.PostMessage(hwnd, win32con.WM_KEYDOWN,
                          win32con.VK_CONTROL, 0)  # 发送F9键
     win32api.PostMessage(hwnd, win32con.WM_KEYDOWN, 0x55, 0)  # 发送F9键
@@ -34,7 +34,6 @@ def writeZScript(s, zpath=None):
     #         zpath = p
     #         print(p)
     # print(s)
-    # zpath = '''D:\\apps\\Pixologic ZBrush V4R7 P2 Portable\\Picologic ZBrush 4R7 P2\\ZScripts'''
     if zpath:
         defzsc = os.path.join(zpath, "DefaultZScript.txt")
         print(defzsc)
@@ -55,7 +54,7 @@ def scriptZRemesher(v):
     return s
 
 
-def runDynaMesh(v):
+def scriptDynaMesh(v):
     s = '''
 [Loop,1,
 [ISet,Tool:Geometry:Resolution,{0}]
@@ -66,9 +65,15 @@ def runDynaMesh(v):
 '''.format(v)
     return s
 
-def runZRemesher(v):
+def runZRemesher(zpath,v):
     s = scriptZRemesher(v)
-    writeZScript(s)
+    writeZScript(s,zpath)
+    runDefScript()
+    pass
+
+def runDynaMesh(zpath,v):
+    s = scriptDynaMesh(v)
+    writeZScript(s,zpath)
     runDefScript()
     pass
     

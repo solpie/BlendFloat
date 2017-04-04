@@ -99,15 +99,17 @@ def pushExecBpy():
     execInfo.push(bpy)
     return "ok"
 #gob
-from modules.gob import runZRemesher
+from modules.gob import runZRemesher,runDynaMesh
 @app.route('/gob',methods=['POST'])
 def gob():
     mod = request.values.get('mod', 0) 
     value = request.values.get('value', 0)
+    zscPath = request.values.get('zscPath', 0)
     if mod =='ZRemesher':
-        runZRemesher(value)
+        runZRemesher(zscPath,value)
         pass
     elif mod=='Dynamesh':
+        runDynaMesh(zscPath,value)
         pass
     return "ok"
 

@@ -58,10 +58,10 @@ let app = new Vue({
 
             //     })
         },
-        runZRemesher(v) {
-            console.log('runZRemesher', v)
+        gob(mod, v) {
+            console.log(mod, v)
             $.post('/gob', {
-                mod: 'ZRemesher', value: v
+                mod: mod, value: v, zscPath: this.zscPath
             })
         },
         bpy: function (scriptName) {
