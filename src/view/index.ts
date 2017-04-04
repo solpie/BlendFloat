@@ -1,6 +1,10 @@
 declare const require;
 require(`script-loader!./../../libs/vue.min.js`);
 require(`script-loader!./../../libs/jquery.min.js`);
+require(`script-loader!./../../libs/css/material.min.js`);
+require(`./../../libs/css/material.min.css`);
+require(`./../../libs/css/icon.css`);
+
 
 declare let Vue;
 declare let $;

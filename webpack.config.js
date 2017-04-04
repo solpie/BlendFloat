@@ -13,6 +13,10 @@ module.exports = {
         loaders: [
             { test: /\.tsx?$/, loader: "ts-loader" },
             { test: /\.html$/, loader: "html-loader?minimize=false" },
+            {
+                test: /\.(eot|woff|woff2|ttf|svg|png|jpg)$/,
+                loader: 'url-loader?limit=30000&name=[name]-[hash].[ext]'
+            },
             { test: /\.css$/, loader: "style-loader!css-loader?root=." }
         ]
     },
