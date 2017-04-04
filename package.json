@@ -1,15 +1,23 @@
 {
-    "name": "BlendFloat",
-    "version": "1.0.0",
-    "description": "",
-    "scripts": {
-        "build": "pyinstaller src/BlendFloat.py -F --upx-dir c:/bin/upx391w --noupx",
-        "start": "python src/BlendFloat.py"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/solpie/BlendFloat.git"
-    },
-    "author": "",
-    "license": "ISC"
+  "name": "BlendFloat",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "pyinstaller src/BlendFloat.py -F --upx-dir c:/bin/upx391w --noupx",
+    "watch": "webpack --watch --progress --profile --colors --display-error-details --display-cached --config webpack.config.js",
+    "start": "python src/BlendFloat.py"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/solpie/BlendFloat.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "html-loader": "^0.4.5",
+    "script-loader": "^0.7.0",
+    "ts-loader": "^2.0.3",
+    "typescript": "^2.2.2",
+    "webpack": "^2.3.3"
+  }
 }
