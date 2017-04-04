@@ -1,12 +1,42 @@
 declare const require;
-require(`script-loader!./../../libs/vue.min.js`);
+// require(`script-loader!./../../libs/vue.min.js`);
 require(`script-loader!./../../libs/jquery.min.js`);
-require(`script-loader!./../../libs/css/material.min.js`);
-require(`./../../libs/css/material.min.css`);
-require(`./../../libs/css/icon.css`);
+// require(`script-loader!./../../libs/css/material.min.js`);
+// require(`./../../libs/css/material.min.css`);
+// require(`./../../libs/css/icon.css`);
+require(`script-loader!./../../libs/webgui.js`);
 
 
 declare let Vue;
+// let $ = {
+//     get: (url, cb) => {
+//         var request = new XMLHttpRequest();
+//         request.open('GET', url, true);
+//         request.onload = function () {
+//             if (request.status >= 200 && request.status < 400) {
+//                 // Success!
+//                 // var data = JSON.parse(request.responseText);
+//                 if (cb)
+//                     cb(request.responseText)
+//             } else {
+//                 // We reached our target server, but it returned an error
+//             }
+//         };
+//         request.onerror = function () {
+//             // There was a connection error of some sort
+//         };
+
+//         request.send();
+//     },
+//     post: (url, data, cb?) => {
+//         var request = new XMLHttpRequest();
+//         request.open('POST', url, true);
+//         //       data: JSON.stringify(data),
+//         // headers: { "Content-Type": "application/json" },
+//         request.setRequestHeader('Content-Type', 'application/json');
+//         request.send(data);
+//     }
+// };
 declare let $;
 let app = new Vue({
     el: '#app',
@@ -20,6 +50,7 @@ let app = new Vue({
             //         "bpy": code
             //     }, function(res) {
             //         console.log(res);
+            
             //     })
         },
         bpy: function (scriptName) {

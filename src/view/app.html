@@ -1,14 +1,37 @@
-<div>
-    <h2>BlendFloat</h2>
-    Async mode is: <b></b>
-    <p><textarea id="bpy"></textarea>
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" @click="execCode()">
-        exec code
-        </button>
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" @click="bpy('join.py')">
-        join
-        </button>
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" @click='bpy("gob.py")'>
-        gob
-        </button>
+<!-- Simple header with scrollable tabs. -->
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+        <!-- Tabs -->
+        <div class="mdl-layout__tab-bar">
+            <a href="#scroll-tab-1" class="mdl-layout__tab is-active">Auto GoB</a>
+            <a href="#scroll-tab-2" class="mdl-layout__tab">Join</a>
+            <a href="#scroll-tab-3" class="mdl-layout__tab">Console</a>
+        </div>
+    </header>
+    <main class="mdl-layout__content">
+        <section class="mdl-layout__tab-panel is-active" id="scroll-tab-1">
+            <div class="page-content">
+                <div>
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" @click='bpy("gob.py")'>gob</button>
+                </div>
+            </div>
+        </section>
+        <section class="mdl-layout__tab-panel" id="scroll-tab-2">
+            <div class="page-content">
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" @click="bpy('join.py')">        join        </button>
+            </div>
+        </section>
+        <section class="mdl-layout__tab-panel" id="scroll-tab-3">
+            <div class="page-content">
+                <!-- Floating Multiline Textfield -->
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" @click="execCode()">exec code     </button>
+                <form action="#">
+                    <div class="mdl-textfield mdl-js-textfield">
+                        <textarea class="mdl-textfield__input" type="text" rows="50" id='sample5'></textarea>
+                        <label class="mdl-textfield__label" for="sample5">import bpy</label>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
 </div>
