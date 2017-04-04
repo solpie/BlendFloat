@@ -68,7 +68,7 @@ class ExecInfo(object):
 
 execInfo = ExecInfo()
 # web server
-from flask import Flask, render_template, session, request
+from flask import Flask, request
 from flask_socketio import SocketIO
 
 # Set this variable to "threading", "eventlet" or "gevent" to test the
@@ -83,7 +83,17 @@ socketio = SocketIO(app, async_mode=async_mode)
 
 @app.route('/')
 def index():
-    return render_template('index.html', async_mode=socketio.async_mode)
+    return'''
+<head>
+    <meta charset="UTF-8">
+    <title>BlendFloat ver 0.1</title>
+</head>
+<body>
+    <div id="app">
+        <router-view></router-view>
+    </div>
+    <script src="/static/js/index.js"></script>
+</body>'''
 
 @app.route('/exec',methods=['GET'])
 def getExecBpy():
