@@ -77,6 +77,18 @@ def pushExecBpy():
     bpy = request.values.get('bpy', 0) 
     execInfo.push(bpy)
     return "ok"
-    
+#gob
+from modules.gob import runZRemesher
+@app.route('/gob',methods=['POST'])
+def gob():
+    mod = request.values.get('mod', 0) 
+    value = request.values.get('value', 0)
+    if mod =='ZRemesher':
+        runZRemesher(value)
+        pass
+    elif mod=='Dynamesh':
+        pass
+    return "ok"
+
 if __name__ == '__main__':
     socketio.run(app,port=int(serverConf["port"]), debug=True)

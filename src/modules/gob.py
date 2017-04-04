@@ -43,7 +43,7 @@ def writeZScript(s, zpath=None):
             f.close()
 
 
-def runZRemesher(v):
+def scriptZRemesher(v):
     s = '''
 [Loop,1,
 [ISet,Tool:Geometry:Target Polygons Count,{0}]
@@ -66,7 +66,12 @@ def runDynaMesh(v):
 '''.format(v)
     return s
 
-
+def runZRemesher(v):
+    s = scriptZRemesher(v)
+    writeZScript(s)
+    runDefScript()
+    pass
+    
 def main():
     s = runZRemesher(2)
     writeZScript(s)

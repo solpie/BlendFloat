@@ -41,6 +41,11 @@ declare let $;
 let app = new Vue({
     el: '#app',
     template: require('./app.html'),
+    data: {
+        zscPath: `D:\\apps\\Pixologic ZBrush V4R7 P2 Portable\\Picologic ZBrush 4R7 P2\\ZScripts`,
+        zrPolygonsCount: 2,
+        zdResolution: 128
+    },
     methods: {
         execCode: function (scriptName) {
             //   var code = $('#bpy').val();
@@ -50,8 +55,14 @@ let app = new Vue({
             //         "bpy": code
             //     }, function(res) {
             //         console.log(res);
-            
+
             //     })
+        },
+        runZRemesher(v) {
+            console.log('runZRemesher', v)
+            $.post('/gob', {
+                mod: 'ZRemesher', value: v
+            })
         },
         bpy: function (scriptName) {
             let g = new Date().getTime()

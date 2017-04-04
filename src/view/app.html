@@ -11,14 +11,32 @@
     <main class="mdl-layout__content">
         <section class="mdl-layout__tab-panel is-active" id="scroll-tab-1">
             <div class="page-content">
-                <div>
+                <div style="padding:5px">
+
                     <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" @click='bpy("gob.py")'>gob</button>
+                    <div class="demo-card-wide mdl-card mdl-shadow--2dp" style="width:400px;height:100px;padding: 5px">
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" @click='runZRemesher(zrPolygonsCount)' style="width: 150px">ZRemesher</button>
+                        <br> Polygons Count {{zrPolygonsCount}} K
+                        <input class="mdl-slider mdl-js-slider" type="range" min="2" max="20" v-model='zrPolygonsCount'>
+                    </div>
+
+                    <div class="mdl-card mdl-shadow--2dp" style="width:400px;height:100px;padding: 5px">
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" @click='bpy("gob.py")' style="width: 150px">Dynamesh</button>
+                        <br> Resolution {{zdResolution}}
+                        <input class="mdl-slider mdl-js-slider" type="range" min="8" max="4096" v-model='zdResolution'>
+                    </div>
+                    <form action="#">
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input class="mdl-textfield__input" type="text" id="t1" v-model='zscPath'>
+                            <label class="mdl-textfield__label" for="t1">ZScripts Path...</label>
+                        </div>
+                    </form>
                 </div>
             </div>
         </section>
         <section class="mdl-layout__tab-panel" id="scroll-tab-2">
             <div class="page-content">
-                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" @click="bpy('join.py')">        join        </button>
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" @click="bpy('join.py')">join</button>
             </div>
         </section>
         <section class="mdl-layout__tab-panel" id="scroll-tab-3">
