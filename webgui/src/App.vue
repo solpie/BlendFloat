@@ -41,8 +41,9 @@
       </el-tab-pane>
       <el-tab-pane label="Console">Console2</el-tab-pane>
       <el-tab-pane label="Setting">
-        <el-input placeholder="9527"  v-if='isEletron' v-model="port" >
-          <template slot="prepend">localhost port:</template>
+        <el-input placeholder="9527" v-if='isEletron' v-model="port">
+          <template slot="prepend">localhost port:
+</template>
         </el-input>
       </el-tab-pane>
     </el-tabs>
@@ -53,6 +54,7 @@
   let bpyMap = {
     'gob.py': require("text-loader!../../src/static/bpy/gob.py")
   }
+  import electron from './electron.js'
   // console.log(bpyMap)
   export default {
     data() {
@@ -66,21 +68,20 @@
         value1: 1
       }
     },
-    created(){
-       this.$notify({
-          title: 'It Works',
-          message: 'BlendFload created!',
-          duration: 1000
-        })
-        if(this.isEletron)
-        {
-          const electron = window['require']('electron')
-         let win =  electron.remote.getCurrentWindow();
-         console.log(win)
-         win.setSize(450,750)
-        }
+    created() {
+      this.$notify({
+        title: 'It Works',
+        message: 'BlendFload created!',
+        duration: 1000
+      })
+      if (this.isEletron) {
+        electron()
+      }
     },
     methods: {
+      handleChange(){
+
+      },
       api(url) {
         if (this.isEletron)
           return 'http://localhost:' + this.port + url
