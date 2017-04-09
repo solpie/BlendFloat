@@ -2,7 +2,7 @@
   <div id="app">
     <el-tabs type="border-card">
       <el-tab-pane style="width:250px">
-              <el-button type="primary" @click.native='bpy("gob.py")'>export</el-button>
+        <el-button type="primary" @click.native='bpy("gob.py")'>export</el-button>
         <span slot="label"><i class="el-icon-edit"></i> ZBrush</span>
         <el-collapse v-model="activeNames" @change="handleChange">
           <el-collapse-item title="ZRemesher" name="1">
@@ -40,12 +40,19 @@
         </el-collapse>
       </el-tab-pane>
       <el-tab-pane label="Console">Console2</el-tab-pane>
+      <el-tab-pane label="Setting">
+        <el-input placeholder="9527"  v-if='isEletron' v-model="port" >
+          <template slot="prepend">localhost port:</template>
+        </el-input>
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
 
 <script>
-  let bpyMap = {'gob.py':require("text-loader!../../src/static/bpy/gob.py")}
+  let bpyMap = {
+    'gob.py': require("text-loader!../../src/static/bpy/gob.py")
+  }
   // console.log(bpyMap)
   export default {
     data() {
@@ -54,17 +61,30 @@
         ZRemesherValue: 2,
         ZDynameshValue: 128,
         zscPath: `D:\\apps\\Pixologic ZBrush V4R7 P2 Portable\\Picologic ZBrush 4R7 P2\\ZScripts`,
+        port: 9527,
+        isEletron: window['require'],
         value1: 1
       }
     },
-  
-    methods: {
-      startHacking() {
-        this.$notify({
+    created(){
+       this.$notify({
           title: 'It Works',
-          message: 'We have laid the groundwork for you. Now it\'s your time to build something epic!',
-          duration: 6000
+          message: 'BlendFload created!',
+          duration: 1000
         })
+        if(this.isEletron)
+        {
+          const electron = window['require']('electron')
+         let win =  electron.remote.getCurrentWindow();
+         console.log(win)
+         win.setSize(450,750)
+        }
+    },
+    methods: {
+      api(url) {
+        if (this.isEletron)
+          return 'http://localhost:' + this.port + url
+        return url
       },
       execCode() {
         console.log('ssssssss')
@@ -80,7 +100,7 @@
       },
       gob(mod, v) {
         console.log(mod, v)
-        this.$http.post('/gui/gob', {
+        this.$http.post(this.api('/gui/gob'), {
           mod: mod,
           value: v,
           zscPath: this.zscPath
@@ -89,7 +109,7 @@
       bpy(scriptName) {
         let b = bpyMap[scriptName]
         if (b) {
-          this.$http.post('/gui/exec', {
+          this.$http.post(this.api('/gui/exec'), {
             bpy: b
           })
         }

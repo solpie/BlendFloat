@@ -5,6 +5,7 @@
     "scripts": {
         "build": "pyinstaller src/BlendFloat.py -F --upx-dir c:/bin/upx391w --noupx",
         "watch": "cd webgui&&npm run dev",
+        "gui": "electron http://localhost:8010",
         "webgui-build": "cd webgui&&npm run build",
         "start": "cd src&&python BlendFloat.py"
     },
