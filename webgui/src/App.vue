@@ -80,7 +80,7 @@
       },
       gob(mod, v) {
         console.log(mod, v)
-        $.post('/gui/gob', {
+        this.$http.post('/gui/gob', {
           mod: mod,
           value: v,
           zscPath: this.zscPath
@@ -89,7 +89,7 @@
       bpy(scriptName) {
         let b = bpyMap[scriptName]
         if (b) {
-          $.post('/gui/exec', {
+          this.$http.post('/gui/exec', {
             bpy: b
           })
         }

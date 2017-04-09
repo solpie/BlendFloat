@@ -68,7 +68,7 @@ class ExecInfo(object):
 
 execInfo = ExecInfo()
 # web server
-from flask import Flask, request
+from flask import Flask, request,redirect
 from flask_socketio import SocketIO
 
 # Set this variable to "threading", "eventlet" or "gevent" to test the
@@ -83,22 +83,7 @@ socketio = SocketIO(app, async_mode=async_mode)
 
 @app.route('/')
 def index():
-    return'''
-<head>
-    <meta charset="UTF-8">
-    <title>BlendFloat ver 0.1</title>
-    <link rel="stylesheet" href="https://unpkg.com/element-ui@next/lib/theme-default/index.css">
-</head>
-<body>
-    <div id="app">
-        <router-view></router-view>
-    </div>
-    <!-- 先引入 Vue -->
-<script src="https://unpkg.com/vue/dist/vue.js"></script>
-<!-- 引入组件库 -->
-<script src="https://unpkg.com/element-ui/lib/index.js"></script>
-    <script src="/static/js/index.js"></script>
-</body>'''
+    return redirect('/static/index.html')
 
 @app.route('/exec',methods=['GET'])
 def getExecBpy():
