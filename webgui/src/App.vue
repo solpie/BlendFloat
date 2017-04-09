@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <el-tabs type="border-card">
-              <el-button type="primary" @click.native='bpy("gob.py")'>export</el-button>
       <el-tab-pane style="width:250px">
+              <el-button type="primary" @click.native='bpy("gob.py")'>export</el-button>
         <span slot="label"><i class="el-icon-edit"></i> ZBrush</span>
         <el-collapse v-model="activeNames" @change="handleChange">
           <el-collapse-item title="ZRemesher" name="1">
