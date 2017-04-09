@@ -87,11 +87,16 @@ def index():
 <head>
     <meta charset="UTF-8">
     <title>BlendFloat ver 0.1</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui@next/lib/theme-default/index.css">
 </head>
 <body>
     <div id="app">
         <router-view></router-view>
     </div>
+    <!-- 先引入 Vue -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- 引入组件库 -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <script src="/static/js/index.js"></script>
 </body>'''
 
@@ -101,8 +106,8 @@ def getExecBpy():
     # if bpy !="":
     #     setBlenderForeground()
     return bpy
-    
-@app.route('/exec',methods=['POST'])
+#req from gui    
+@app.route('/gui/exec',methods=['POST'])
 def pushExecBpy():
     ExecInfo.callBlender()
     bpy = request.values.get('bpy', 0) 
@@ -110,7 +115,7 @@ def pushExecBpy():
     return "ok"
 #gob
 from modules.gob import runZRemesher,runDynaMesh
-@app.route('/gob',methods=['POST'])
+@app.route('/gui/gob',methods=['POST'])
 def gob():
     mod = request.values.get('mod', 0) 
     value = request.values.get('value', 0)

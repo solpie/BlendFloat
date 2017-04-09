@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-__author__ = 'toramisu'
-codeListArmature = """
 import bpy
 ARMATURE_list = []
 for obj in bpy.data.objects:
@@ -16,4 +13,3 @@ request = urllib.request.Request("http://127.0.0.1:9527/list")
 # adding charset parameter to the Content-Type header.
 request.add_header("Content-Type", "application/x-www-form-urlencoded;charset=utf-8")
 f = urllib.request.urlopen(request, data)
-"""

@@ -4,3 +4,4 @@ dist/
 *.spec
 *.pyc
 node_modules/
+*.log
