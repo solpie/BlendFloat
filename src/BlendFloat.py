@@ -98,6 +98,16 @@ def pushExecBpy():
     bpy = request.values.get('bpy', 0) 
     execInfo.push(bpy)
     return "ok"
+
+@app.route('/gui/py',methods=['POST'])
+def runPython():
+    code = request.values.get('py', 0) 
+    try:
+        exec(compile(code, '<string>', 'exec'))
+    except Exception as e:
+        print(e)
+        return 'err'
+    return 'ok'
 #gob
 from modules.gob import runZRemesher,runDynaMesh
 @app.route('/gui/gob',methods=['POST'])

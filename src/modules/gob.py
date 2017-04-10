@@ -43,13 +43,21 @@ def writeZScript(s, zpath=None):
 
 
 def scriptZRemesher(v):
-    s = '''
-[Loop,1,
-[ISet,Tool:Geometry:Target Polygons Count,{0}]
-[IPress,Tool:Geometry:ZRemesher]
-[IPress,Tool:GoZ]
-]
-    '''.format(v)
+    if int(v) == 0:
+        s = '''
+    [Loop,1,
+    [IPress,Tool:Geometry:ZRemesher]
+    [IPress,Tool:GoZ]
+    ]
+        '''.format(v)
+    else:
+        s = '''
+    [Loop,1,
+    [ISet,Tool:Geometry:Target Polygons Count,{0}]
+    [IPress,Tool:Geometry:ZRemesher]
+    [IPress,Tool:GoZ]
+    ]
+        '''.format(v)
     # print(s)
     return s
 
