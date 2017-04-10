@@ -9,7 +9,6 @@ Vue.use(VueResource)
 Vue.http.options.emulateJSON = true;
 Vue.use(ElementUI)
 
-
 new Vue({
     el: '#app',
     render: h => h(App)

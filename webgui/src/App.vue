@@ -118,6 +118,8 @@ export default {
       electron()
     }
   },
+  mounted(){
+  },
   methods: {
     handleChange() {
 

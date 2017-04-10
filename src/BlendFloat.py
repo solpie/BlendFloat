@@ -16,6 +16,7 @@ config = configparser.RawConfigParser()
 def loadConf():
     config.read(os.path.join(serverConf["path"], '.cfg'))
     serverConf["port"] = config.get('server', 'port')
+    serverConf["debug"] = (config.get('server', 'debug')=='1')
     serverConf["views"] = config.get('server', 'views')
     serverConf["reqHeaders"] = config.get('server', 'reqHeaders').split(",")
     serverConf["resHeaders"] = config.get('server', 'resHeaders').split(",")
@@ -124,4 +125,4 @@ def gob():
     return "ok"
 
 if __name__ == '__main__':
-    socketio.run(app,port=int(serverConf["port"]), debug=True)
+    socketio.run(app,port=int(serverConf["port"]), debug=serverConf["debug"] )
