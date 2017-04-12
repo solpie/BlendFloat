@@ -11,7 +11,6 @@
 import app from '../App'
 
 export default {
-    // props: ['data'],
     data() {
         return app
     },
