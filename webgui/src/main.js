@@ -12,11 +12,7 @@ import SettingPanel from './panel/Setting.vue'
 import ZBrushPanel from './panel/ZBrush.vue'
 Vue.component('SettingPanel', SettingPanel)
 Vue.component('ZBrushPanel', ZBrushPanel)
-let vm = new Vue({
-        el: '#app',
-        render: h => h(App)
-    })
-    // import app from './App.js'
-    // app.init(vm)
-    // vm.render = h => h(App)
-    // render: h => h(App)
+new Vue({
+    el: '#app',
+    render: h => h(App)
+})

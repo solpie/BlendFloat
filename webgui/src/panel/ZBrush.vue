@@ -2,7 +2,8 @@
     <div>
         <el-button type="primary"
                    @click.native='bpy("gob.py")'>export</el-button>
-        <el-button @click.native='bpy("gob.py")'>undo</el-button>
+        <el-button @click.native='execCodeLocal("ctrlz.py")'>undo</el-button>
+        <el-button @click.native='execCodeLocal("zbRedo.py")'>redo</el-button>
         <el-collapse v-model="data1.activeNames"
                      @change="handleChange">
             <el-collapse-item title="ZRemesher"
@@ -82,9 +83,13 @@ export default {
         bpy(name) {
             app.bpy(name)
         },
+        execCodeLocal(name) {
+            app.execCodeLocal(name)
+        },
         gob(mod, v) {
-            app.gob(name)
-        }
+            app.gob(mod, v)
+        },
+        // execCodeLocal: app.execCodeLocal
     }
 }
 </script>

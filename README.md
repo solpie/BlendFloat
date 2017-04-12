@@ -12,4 +12,3 @@ watch zbrush loaded
 dynamic python script
 close hole
 eq surface area
-ctrl-z

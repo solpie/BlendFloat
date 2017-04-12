@@ -11,12 +11,12 @@ def runDefScript():
     # 0x55
     # U key
     win32api.PostMessage(hwnd, win32con.WM_KEYDOWN,
-                         win32con.VK_CONTROL, 0)  # 发送F9键
-    win32api.PostMessage(hwnd, win32con.WM_KEYDOWN, 0x55, 0)  # 发送F9键
+                         win32con.VK_CONTROL, 0)  # 
+    win32api.PostMessage(hwnd, win32con.WM_KEYDOWN, 0x55, 0)  # 
     win32api.PostMessage(hwnd, win32con.WM_KEYUP, 0x55, 0)
     win32api.PostMessage(hwnd, win32con.WM_KEYUP, win32con.VK_CONTROL, 0)
     win32api.PostMessage(hwnd, win32con.WM_KEYDOWN,
-                         win32con.VK_MULTIPLY, 0)  # 发送F9键
+                         win32con.VK_MULTIPLY, 0)  # 
     win32api.PostMessage(hwnd, win32con.WM_KEYUP, win32con.VK_MULTIPLY, 0)
 
 
