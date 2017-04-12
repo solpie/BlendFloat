@@ -8,16 +8,16 @@
                    @click.native='execCodeLocal("zbUndo.py")'>undo</el-button>
         <el-button size='small'
                    @click.native='execCodeLocal("zbRedo.py")'>redo</el-button>
-        <el-collapse v-model="data1.activeNames"
+        <el-collapse v-model="zb.activeNames"
                      @change="handleChange">
             <el-collapse-item title="ZRemesher"
                               name="1">
-                <div>Polygons count {{data1.ZRemesherValue}} K
+                <div>Polygons count {{zb.ZRemesherValue}} K
                     <el-button type="text"
                                @click.native='gob("ZRemesher",0)'>default</el-button>
                 </div>
                 <div class="block">
-                    <el-slider v-model="data1.ZRemesherValue"
+                    <el-slider v-model="zb.ZRemesherValue"
                                :step="1"
                                :min="1"
                                :max="20"
@@ -25,12 +25,12 @@
                                show-stops></el-slider>
                 </div>
                 <el-input-number size="small"
-                                 v-model="data1.ZRemesherValue"
+                                 v-model="zb.ZRemesherValue"
                                  style="width:98px" />
     
                 <div>
                     <el-button type="primary"
-                               @click.native='gob("ZRemesher",data1.ZRemesherValue)'>{{data1.ZRemesherValue}}K</el-button>
+                               @click.native='gob("ZRemesher",zb.ZRemesherValue)'>{{zb.ZRemesherValue}}K</el-button>
                     <el-button type="primary"
                                size='small'
                                @click.native='gob("ZRemesher",5)'>5K</el-button>
@@ -42,14 +42,14 @@
     
             <el-collapse-item title="ZDynamesh"
                               name="2">
-                <div>Resolution {{data1.ZDynameshValue}} </div>
+                <div>Resolution {{zb.ZDynameshValue}} </div>
                 <el-input-number size="small"
-                                 v-model="data1.ZDynameshValue"
+                                 v-model="zb.ZDynameshValue"
                                  style="width:158px" />
     
                 <div>
                     <el-button type="primary"
-                               @click.native='gob("Dynamesh",data1.ZDynameshValue)'>{{data1.ZDynameshValue}}</el-button>
+                               @click.native='gob("Dynamesh",zb.ZDynameshValue)'>{{zb.ZDynameshValue}}</el-button>
                     <el-button type="primary"
                                size='small'
                                @click.native='gob("Dynamesh",16)'>16</el-button>
@@ -68,7 +68,7 @@
                               name="3">
                 <div>
                     <el-input placeholder="ZBrush/ZScripts/"
-                              v-model="data1.zscPath">
+                              v-model="zb.zscPath">
                     </el-input>
                 </div>
             </el-collapse-item>

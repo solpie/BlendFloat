@@ -1,16 +1,11 @@
-let bpyMap = {
-    'gob.py': require("text-loader!../../src/static/bpy/gob.py"),
-}
-const localScript = {
-    'zbUndo.py': require("text-loader!./lpy/zbUndo.py"),
-    'zbRedo.py': require("text-loader!./lpy/zbRedo.py"),
-    'zbFocus.py': require("text-loader!./lpy/zbFocus.py"),
-}
+import { lpy, bpy } from './lpy/zbrush'
+const localScript = lpy
+const bpyMap = bpy
 class App {
     constructor() {
         this.vm = null
         this.port = 9527
-        this.data1 = {
+        this.zb = {
             activeNames: ['1', '2'],
             ZRemesherValue: 2,
             ZDynameshValue: 128,
@@ -31,12 +26,6 @@ class App {
     }
     init(vm) {
         this.vm = vm
-        vm.data1 = {
-            activeNames: ['1', '2'],
-            ZRemesherValue: 2,
-            ZDynameshValue: 128,
-            zscPath: `D:\\apps\\Pixologic ZBrush V4R7 P2 Portable\\Picologic ZBrush 4R7 P2\\ZScripts`,
-        }
         vm.$notify({
             title: 'It Works',
             message: 'BlendFload created!',
@@ -69,7 +58,7 @@ class App {
         this.vm.$http.post(this.api('/gui/gob'), {
             mod: mod,
             value: v,
-            zscPath: this.zscPath
+            zscPath: this.zb.zscPath
         })
     }
 
