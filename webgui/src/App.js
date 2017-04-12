@@ -2,8 +2,9 @@ let bpyMap = {
     'gob.py': require("text-loader!../../src/static/bpy/gob.py"),
 }
 const localScript = {
-    'ctrlz.py': require("text-loader!../../src/static/bpy/ctrlz.py"),
-    'zbRedo.py': require("text-loader!../../src/static/bpy/zbRedo.py"),
+    'zbUndo.py': require("text-loader!./lpy/zbUndo.py"),
+    'zbRedo.py': require("text-loader!./lpy/zbRedo.py"),
+    'zbFocus.py': require("text-loader!./lpy/zbFocus.py"),
 }
 class App {
     constructor() {
