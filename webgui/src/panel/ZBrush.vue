@@ -23,10 +23,12 @@
                                :max="20"
                                :show-tooltip="false"
                                show-stops></el-slider>
-                </div>
+                                      </div>
                 <el-input-number size="small"
                                  v-model="zb.ZRemesherValue"
                                  style="width:98px" />
+                                    <el-button type="text"
+                               @click.native='zbCloseHole' style="position:relative;top:-10px">close hole</el-button>
     
                 <div>
                     <el-button type="primary"
@@ -77,6 +79,7 @@
 </template>
 <script>
 import app from '../App'
+import { lpy, bpy } from '../lpy/zbrush'
 export default {
     data() {
         return app
@@ -93,6 +96,13 @@ export default {
         gob(mod, v) {
             app.gob(mod, v)
         },
+        zbCloseHole(){
+            let zp = app.zb.zscPath
+            zp = zp.replace('\\','/')
+            let ch = lpy.zbCloseHole.replace('{0}','"'+zp+'"')
+            app.postLpy(ch)
+            app.postLpy(lpy.zbRun)
+        }
         // execCodeLocal: app.execCodeLocal
     }
 }

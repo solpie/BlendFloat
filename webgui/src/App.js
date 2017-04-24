@@ -76,6 +76,9 @@ class App {
     }
     execCodeLocal(scriptName) {
         let lpy = localScript[scriptName]
+        this.postLpy(lpy)
+    }
+    postLpy(lpy) {
         this.vm.$http.post(this.api('/gui/py'), {
             py: lpy
         })
